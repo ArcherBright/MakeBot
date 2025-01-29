@@ -1,0 +1,17 @@
+name: Discord Notifications
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Discord Notification
+        uses: fjogeleit/http-request-action@v1.1.0
+        with:
+          url: 'YOUR_DISCORD_WEBHOOK_URL'
+          method: 'POST'
+          headers: 'Content-Type: application/json'
+          data: '{"content": "A new pull request has been created: ${{ github.event.pull_request.html_url }}"}'
